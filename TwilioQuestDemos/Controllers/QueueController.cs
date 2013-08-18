@@ -52,7 +52,7 @@ namespace TwilioQuestDemos.Controllers
             response.Say("Enter the magic number now to be released from the queue", new { numDigits="3", timeout="7"});
             response.EndGather();
 
-            response.Play("No even brave enough to proffer a guess?  Figures.  You can try again in a bit.");
+            response.Say("No even brave enough to proffer a guess?  Figures.  You can try again in a bit.");
             response.Pause(10); //TODO: replace this with a play
 
             return TwiML(response);
