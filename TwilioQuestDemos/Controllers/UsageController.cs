@@ -55,6 +55,7 @@ namespace TwilioQuestDemos.Controllers
         public ActionResult TriggerCallbackHandler()
         {
             //use signalr to update a view
+            return new EmptyResult();
         }
     }
 }

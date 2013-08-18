@@ -13,7 +13,7 @@ namespace TwilioQuestDemos.Controllers
 {
     public class HereController : TwilioController
     {
-        public ActionResult PlaceIntoConference()
+        public ActionResult PlaceIntoConference(string CallSid)
         {
             var response = new TwilioResponse();
             response.Say("Please while while we conjure an agent");
@@ -21,11 +21,11 @@ namespace TwilioQuestDemos.Controllers
             return TwiML(response);
         }
 
-        public ActionResult RedirectOutOfConference()
+        public ActionResult RedirectOutOfConference(string CallSid)
         {
             var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
 
-            client.RedirectCall("", new CallOptions() { Url = Url.Action("Here", "There", null, "http") });
+            client.RedirectCall(CallSid, new CallOptions() { Url = Url.Action("Here", "There", null, "http") });
 
             return new EmptyResult();
         }
