@@ -11,20 +11,6 @@ namespace TwilioQuestDemos.Controllers
 {
     public class UsageController : Controller
     {
-        public ActionResult Dashboard()
-        {
-            var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
-
-            var result = client.ListUsage("[category]", "[interval]", DateTime.Now, DateTime.Now);
-
-            if (result.RestException == null)
-            {
-                ViewBag.usage = result.UsageRecords;
-            }
-
-            return View();
-        }
-
         public ActionResult Triggers()
         {
             //create a new trigger 
