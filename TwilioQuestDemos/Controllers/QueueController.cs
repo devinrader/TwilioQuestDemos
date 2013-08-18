@@ -25,7 +25,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("Now transporting into a phone call with a fellow adventurer.  Say hello when you get there.");
-            response.DialQueue("twilioquestchapter10", new { });  //need to add a overload here
+            response.DialQueue("twilioquestchapter10", new { });  //TODO: need to add a overload here
 
             return TwiML(response);
         }
@@ -36,7 +36,7 @@ namespace TwilioQuestDemos.Controllers
             response.Say("You've been banished to a call queue.  Enjoy your stay.");
             response.Enqueue("twilioquestchapter10", new { waitUrl = ""});
 
-            response.Say("Hail the adventurer!  He has escaped the dispare of the dreaded call queue");
+            response.Say("Hail the adventurer!  He has escaped the despair of the dreaded call queue");
             response.Say("We wish you well on your continued journey");
             return TwiML(response);
         }
@@ -48,10 +48,10 @@ namespace TwilioQuestDemos.Controllers
             response.Say(string.Format("Bwahahaha!  Your time in the queue has been {0} seconds.  Enjoy your wait with {1} of your friends!", QueueTime, CurrentQueueSize));
 
             response.BeginGather(new { action = Url.Action("Queue", "AdvancedWaitGather") });
-            response.Say("Enter the magic number now to be released from the queue");
+            response.Say("Enter the magic number now to be released from the queue", new { numDigits="3", timeout="15"});
             response.EndGather();
 
-            response.Play("");
+            response.Play("314");
 
             return TwiML(response);
         }
@@ -61,14 +61,14 @@ namespace TwilioQuestDemos.Controllers
             var response = new TwilioResponse();
             response.Say("The adventurer is attempting to escape!  Stop him!");
 
-            if (Digits == "")
+            if (Digits == "314")
             {
                 response.Say("The powers of this one are strong!  Leave him.  We will meet again another day.");
-                //response.Leave();  //apparently need to add this to the .net helper?
+                //response.Leave();  //TODO: apparently need to add this to the .net helper?
             }
             else
             {
-                response.Say("You fool!  You thought you could escape the grip of the queue?  Never!");
+                response.Say("You fool!  You thought you could escape the grip of the queue? Never! Back to the queue with you!");
             }
 
             return TwiML(response);
