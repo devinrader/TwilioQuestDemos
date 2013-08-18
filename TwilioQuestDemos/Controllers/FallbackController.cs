@@ -25,7 +25,7 @@ namespace TwilioQuestDemos.Controllers
         public ActionResult GoodResponse()
         {
             var response = new TwilioResponse();
-            response.Say("Opps.  Looks like we are having some problems with your adventure.  Maybe try a different spell?");
+            response.Say("Opps.  Looks like a gitch in the matrix.  Maybe try a different spell?");
             return TwiML(response);
         }
     }
