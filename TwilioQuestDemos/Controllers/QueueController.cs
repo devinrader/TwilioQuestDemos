@@ -25,7 +25,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("Now transporting into a phone call with a fellow adventurer.  Say hello when you get there.");
-            response.DialQueue("twilioquestchapter10", null);
+            response.DialQueue("twilioquestchapter10", new { });  //need to add a overload here
 
             return TwiML(response);
         }

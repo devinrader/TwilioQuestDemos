@@ -14,14 +14,18 @@ namespace TwilioQuestDemos.Controllers
     {
         public ActionResult BadResponse()
         {
+            Response.ContentType = "application/xml";
             //hand craft a bad twiml response
 
-            return new EmptyResult();
+            string bad = "<Response><Say>This represents some invalid TwiML</Say><BadTag>This tag is bad.  Very bad.</BadTag></Response>";
+            
+            return Content(bad);
         }
 
-        public ActionResult FallbackHandler()
+        public ActionResult GoodResponse()
         {
             var response = new TwilioResponse();
+            response.Say("Opps.  Looks like we are having some problems with your adventure.  Maybe try a different spell?");
             return TwiML(response);
         }
     }
