@@ -48,8 +48,8 @@ namespace TwilioQuestDemos.Controllers
 
             response.Say(string.Format("Bwahahaha!  Your time in the queue has been {0} seconds.  Enjoy your wait with {1} of your friends!", QueueTime, CurrentQueueSize));
 
-            response.BeginGather(new { action = Url.Action("Queue", "AdvancedWaitGather") });
-            response.Say("Enter the magic number now to be released from the queue", new { numDigits="3", timeout="15"});
+            response.BeginGather(new { action = Url.Action("AdvancedWaitGather", "Queue", null, "http") });
+            response.Say("Enter the magic number now to be released from the queue", new { numDigits="3", timeout="7"});
             response.EndGather();
 
             response.Play("314");
