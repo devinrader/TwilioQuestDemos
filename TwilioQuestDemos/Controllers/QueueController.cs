@@ -35,7 +35,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("You've been banished to a call queue.  Enjoy your stay.");
-            response.Enqueue("twilioquestchapter11", new { waitUrl = Url.Action("Queue", "AdvancedWait", null, "http")});
+            response.Enqueue("twilioquestchapter11", new { waitUrl = Url.Action("AdvancedWait", "Queue", null, "http")});
 
             response.Say("Hail the adventurer!  He has escaped the despair of the dreaded call queue");
             response.Say("We wish you well on your continued journey");
