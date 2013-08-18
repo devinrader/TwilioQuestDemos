@@ -25,7 +25,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("Now transporting into a phone call with a fellow adventurer.  Say hello when you get there.");
-            response.DialQueue("twilioquestchapter10", new { });  //TODO: need to add a overload here
+            response.DialQueue("twilioquestchapter10", new { timeout="5"});  //TODO: need to add a overload here
 
             response.Say("Hmm.  Looks like there are not any adventures waiting right now.  Try later.");
             return TwiML(response);
@@ -35,7 +35,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("You've been banished to a call queue.  Enjoy your stay.");
-            response.Enqueue("twilioquestchapter10", new { waitUrl = ""});
+            response.Enqueue("twilioquestchapter11", new { waitUrl = Url.Action("Queue", "AdvancedWait", null, "http")});
 
             response.Say("Hail the adventurer!  He has escaped the despair of the dreaded call queue");
             response.Say("We wish you well on your continued journey");
