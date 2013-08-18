@@ -49,10 +49,12 @@ namespace TwilioQuestDemos.Controllers
             response.Say(string.Format("Bwahahaha!  Your time in the queue has been {0} seconds.  Enjoy your wait with {1} of your friends!", QueueTime, CurrentQueueSize));
 
             response.BeginGather(new { action = Url.Action("AdvancedWaitGather", "Queue", null, "http") });
+
+            //TODO: for some reason I have to hit # to get the Gather to work.  Not sure why?
             response.Say("Enter the magic number now to be released from the queue", new { numDigits="3", timeout="7"});
             response.EndGather();
 
-            response.Say("No even brave enough to proffer a guess?  Figures.  You can try again in a bit.");
+            response.Say("Not even brave enough to proffer a guess?  Figures.  You can try again in a bit.");
             response.Pause(10); //TODO: replace this with a play
 
             return TwiML(response);
