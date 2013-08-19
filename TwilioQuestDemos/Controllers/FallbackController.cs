@@ -34,7 +34,7 @@ namespace TwilioQuestDemos.Controllers
         public ActionResult GoodResponse()
         {
             var response = new TwilioResponse();
-            response.Say("Oops.  Looks like a gitch in the kingdom.  Maybe try a different spell later.");
+            response.Say("Oops.  Looks like a glitch in the kingdom.  Maybe try casting a different spell later.");
             return TwiML(response);
         }
     }

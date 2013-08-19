@@ -11,8 +11,13 @@ using Twilio.TwiML.Mvc;
 
 namespace TwilioQuestDemos.Controllers
 {
-    public class HereController : TwilioController
+    public class HereThereController : TwilioController
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
         public ActionResult PlaceIntoConference(string CallSid)
         {
             var response = new TwilioResponse();
