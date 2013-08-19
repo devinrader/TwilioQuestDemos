@@ -18,7 +18,7 @@ namespace TwilioQuestDemos.Controllers
             response.Say("This call will self destruct in 5 seconds");
             response.Pause(5);
             response.Redirect(Url.Action("Boom", "Fallback", null, "http"));
-            return TwiML();
+            return TwiML(response);
         }
 
         public ActionResult Boom()
