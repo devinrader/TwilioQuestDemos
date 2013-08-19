@@ -46,7 +46,7 @@ namespace TwilioQuestDemos.Controllers
                 return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, "A problem occurred locating the correct call.");
             }
 
-            var redirected = client.RedirectCall(call.Sid, new CallOptions() { Url = Url.Action("HereThere", "There", null, "http") });
+            var redirected = client.RedirectCall(call.Sid, new CallOptions() { Url = Url.Action("There", "HereThere", null, "http") });
             if (redirected.RestException!=null)
             {
                 return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Format(result.RestException.Message));
