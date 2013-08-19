@@ -8,10 +8,16 @@ namespace TwilioQuestDemos
 {
     public static class UrlExtensions
     {
-        public static Uri GetBaseUrl(this UrlHelper url)
+        public static Uri GetBaseUrl(this UrlHelper url, bool includePort)
         {
+            Uri baseUri;
+            if (includePort)
+                baseUri = url.RequestContext.HttpContext.Request.Url;
+            else
+                baseUri = new Uri(url.RequestContext.HttpContext.Request.Url.GetComponents(UriComponents.AbsoluteUri & ~UriComponents.Port, UriFormat.UriEscaped));
+
             var uri = new Uri(
-                url.RequestContext.HttpContext.Request.Url,
+                baseUri,
                 url.RequestContext.HttpContext.Request.RawUrl
             );
             var builder = new UriBuilder(uri)
@@ -25,7 +31,12 @@ namespace TwilioQuestDemos
 
         public static string ContentAbsolute(this UrlHelper url, string contentPath)
         {
-            return new Uri(GetBaseUrl(url), url.Content(contentPath)).AbsoluteUri;
+            return new Uri(GetBaseUrl(url, true), url.Content(contentPath)).AbsoluteUri;
+        }
+
+        public static string ContentAbsolute(this UrlHelper url, bool includePort, string contentPath)
+        {
+            return new Uri(GetBaseUrl(url, includePort), url.Content(contentPath)).AbsoluteUri;
         }
 
         public static string ActionAbsolute(this UrlHelper url, string actionName)

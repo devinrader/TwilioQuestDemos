@@ -22,7 +22,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("You've arrived here.  And now some music.");
-            response.Play(Url.ContentAbsolute("/Content/Audio/02-overworld.mp3"), new { loop = "0" });
+            response.Play(Url.ContentAbsolute(false, "/Content/Audio/02-overworld.mp3"), new { loop = "0" });
 
             return TwiML(response);
         }
@@ -32,23 +32,27 @@ namespace TwilioQuestDemos.Controllers
             var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
 
             //lookup the live call by phone number
-            var result = client.ListCalls(new CallListRequest() { From = "", Status="in-progress" });
+            var result = client.ListCalls(new CallListRequest() { From = From, Status="in-progress" });
 
-            if (result.RestException == null)
+            if (result.RestException != null)
             {
-                var call = result.Calls.FirstOrDefault();
-
-                if (call == null)
-                {
-
-                }
-                else
-                {
-                    client.RedirectCall(call.Sid, new CallOptions() { Url = Url.Action("HereThere", "There", null, "http") });
-                }
+                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, "A problem occurred listing calls.");
             }
 
-            return Json(true);
+            var call = result.Calls.FirstOrDefault();
+
+            if (call == null)
+            {
+                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, "A problem occurred locating the correct call.");
+            }
+
+            var redirected = client.RedirectCall(call.Sid, new CallOptions() { Url = Url.Action("HereThere", "There", null, "http") });
+            if (redirected.RestException!=null)
+            {
+                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Format("A problem occurred redirecting call {0}", call.Sid));
+            }
+
+            return Json(new { result = true });
         }
 
         public ActionResult There()
