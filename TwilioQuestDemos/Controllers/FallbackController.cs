@@ -17,7 +17,7 @@ namespace TwilioQuestDemos.Controllers
             Response.ContentType = "application/xml";
             //hand craft a bad twiml response
 
-            string bad = "<Response><Say>This represents some invalid TwiML</Say><BadTag>This tag is bad.  Very bad.</BadTag></Response>";
+            string bad = "<Response><Say>This represents some invalid TwiML<BadTag>This tag is bad.  Very bad.</BadTag></Response>";
             
             return Content(bad);
         }
@@ -25,7 +25,7 @@ namespace TwilioQuestDemos.Controllers
         public ActionResult GoodResponse()
         {
             var response = new TwilioResponse();
-            response.Say("Opps.  Looks like a gitch in the matrix.  Maybe try a different spell?");
+            response.Say("Opps.  Looks like a gitch in the kingdom.  Maybe try a different spell later.");
             return TwiML(response);
         }
     }
