@@ -22,7 +22,7 @@ namespace TwilioQuestDemos.Controllers
         {
             var response = new TwilioResponse();
             response.Say("You've arrived here.  And now some music.");
-            response.Play("", new { loop = "0" });
+            response.Play(Url.ContentAbsolute("/Content/Audio/02-overworld.mp3"), new { loop = "0" });
 
             return TwiML(response);
         }
