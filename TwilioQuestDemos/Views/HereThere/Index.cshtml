@@ -2,12 +2,22 @@
     ViewBag.Title = "Index";
 }
 
+<script src="~/Scripts/jquery-2.0.3.min.js"></script>
+<script type="text/javascript">
+    function redirectCall() {
+        var number = $('number').val();
+
+        $.post('@Url.Action("RedirectFromHere")', { 'From': number }, function (data) {
+            //show the result
+        });
+    }
+</script>
+
 <h2>Index</h2>
 
-This requires three phones to experience.  Grab a few people in your guild to try it out.
+Call ###-###-####
+ 
+Your call will be placed into an music loop.  Enter your phone number and press the button below to be redirected out of the loop
 
-Customer Call ###-###-####
-
-Agent 1 Call ###-###-####
-
-Enter a phone number and press this button to call and hand off to agent 2
+<input type="text" id="number" />
+<button onclick="redirectCall()" />
