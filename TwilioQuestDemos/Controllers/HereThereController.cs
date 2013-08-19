@@ -36,7 +36,7 @@ namespace TwilioQuestDemos.Controllers
 
             if (result.RestException != null)
             {
-                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, "A problem occurred listing calls.");
+                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, result.RestException.Message);
             }
 
             var call = result.Calls.FirstOrDefault();
@@ -49,7 +49,7 @@ namespace TwilioQuestDemos.Controllers
             var redirected = client.RedirectCall(call.Sid, new CallOptions() { Url = Url.Action("HereThere", "There", null, "http") });
             if (redirected.RestException!=null)
             {
-                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Format("A problem occurred redirecting call {0}", call.Sid));
+                return new System.Web.Mvc.HttpStatusCodeResult(HttpStatusCode.InternalServerError, string.Format(result.RestException.Message));
             }
 
             return Json(new { result = true });
