@@ -2,22 +2,27 @@
     ViewBag.Title = "Index";
 }
 
-<script src="~/Scripts/jquery-2.0.3.min.js"></script>
 <script type="text/javascript">
     function redirectCall() {
         var number = $('number').val();
 
         $.post('@Url.Action("RedirectFromHere")', { 'From': number }, function (data) {
-            //show the result
+            
         });
     }
 </script>
 
-<h2>Index</h2>
 
-Call ###-###-####
+<div class="row">
+    <div class="col-lg-12">
+        <p>From your phone, call ###-###-####.  Your call will be placed into an loop.</p>
  
-Your call will be placed into an music loop.  Enter your phone number and press the button below to be redirected out of the loop
+        <p>Enter your phone number below and press the button below to have the call redirected out of the loop</p>
 
-<input type="text" id="number" />
-<button onclick="redirectCall()" />
+        <form class="form-inline">
+            <input class="form-control" type="text" id="number" style="width:250px;" placeholder="+1 555 555-5555" />
+            <button class="btn" type="button" onclick="redirectCall()">Redirect Call</button>
+        </form>
+        
+    </div>
+</div>
