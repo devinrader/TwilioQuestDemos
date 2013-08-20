@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace TwilioQuestDemos
 {
@@ -56,8 +57,18 @@ namespace TwilioQuestDemos
 
         public static string ActionAbsolute(this UrlHelper url, string actionName, string controllerName, object routeValues)
         {
-            return url.Action(actionName, controllerName, routeValues, "http");
+            string scheme = url.RequestContext.HttpContext.Request.Url.Scheme;
+            string host = url.GetBaseUrl(false).ToString();
+            
+            string relativeAction = url.Action(actionName, controllerName, routeValues);
+
+            string action = string.Format("{1}{2}", scheme, host, relativeAction);
+            Console.WriteLine(action);
+
+            return action;
         }
+
+
     }
 
 }

@@ -59,13 +59,25 @@ namespace TwilioQuestDemos.Controllers
             return View();            
         }
 
-        public ActionResult TriggerCallbackHandler()
+        public ActionResult TriggerCallbackHandler(string UsageTriggerSid, string DateFired, string UsageCategory, string TriggerBy, string TriggerValue, string CurrentUsageValue, string IdempotencyToken)
         {
+            var token = System.Web.HttpContext.Current.Cache["idempotencyToken"];
+
+            if (token != null) {
+                if (token.ToString() == IdempotencyToken) {
+                    return new EmptyResult();                
+                }
+            }
+
+            System.Web.HttpContext.Current.Cache["idempotencyToken"] = IdempotencyToken;
+
             var context = GlobalHost.ConnectionManager.GetHubContext<Trigger>();
-            context.Clients.All.triggerNotification();
+            context.Clients.All.triggerNotification(UsageTriggerSid, DateFired, UsageCategory, TriggerBy, TriggerValue, CurrentUsageValue);
+
+            Console.WriteLine("Trigger Fired");
 
             string sid = FindTrigger();
-            if (!string.IsNullOrEmpty(null))
+            if (!string.IsNullOrEmpty(sid))
             {
                 DeleteTrigger(sid);
                 CreateTrigger();
@@ -73,6 +85,26 @@ namespace TwilioQuestDemos.Controllers
 
             return new EmptyResult();
         }
+
+        public ActionResult Clear()
+        {
+            var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
+
+            int counter = 0;
+
+            var result = client.ListUsageTriggers();
+            if (result.RestException == null)
+            {
+                foreach (var t in result.UsageTriggers)
+                {
+                    client.DeleteUsageTrigger(t.Sid);
+                    counter++;
+                }
+            }
+
+            return Content("Triggers deleted: " + counter.ToString());
+        }
+
 
         private string FindTrigger()
         {
@@ -99,11 +131,11 @@ namespace TwilioQuestDemos.Controllers
 
             var trigger = client.CreateUsageTrigger(new UsageTriggerOptions()
             {
-                UsageCategory = "sms",
+                UsageCategory = "sms-inbound",
                 FriendlyName = "Chapter13Trigger",
-                TriggerBy = "count",
-                TriggerValue = "3",
-                CallbackUrl = Url.Action("TriggerCallbackHandler", "Usage", null, "http")
+                TriggerBy = "usage",
+                TriggerValue = "+3",
+                CallbackUrl = Url.ActionAbsolute("TriggerCallbackHandler")
             });
 
             if (trigger.RestException != null)
@@ -116,7 +148,12 @@ namespace TwilioQuestDemos.Controllers
         {
             var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
 
-            client.DeleteUsageTrigger(sid);
+            var result = client.DeleteUsageTrigger(sid);
+
+            if (result == DeleteStatus.Failed)
+            {
+                Console.WriteLine("Delete Failed");
+            }
         }
 
     }
