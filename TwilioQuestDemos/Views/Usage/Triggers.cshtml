@@ -2,8 +2,7 @@
     ViewBag.Title = "Triggers";
 }
 
-
-<p>This page creates a usage trigger which will fire after every three sms messages sent to ###-###-####.</p>
+<p>This page creates a usage trigger which will fire after every three sms messages sent to +1 240-428-6557.</p>
 
 <p>Each time the trigger fires, this we application will receive the trigger notification and display a message below.</p>
 
@@ -25,7 +24,7 @@
         var hub = $.connection.triggerHub;
 
         hub.client.triggerNotification = function (usageTriggerSid, dateFired, usageCategory, triggerBy, triggerValue, currentUsageValue) {
-            $("ul").append($('<li>').append('<span>[' + dateFired + '] ['+ usageTriggerSid +']' + usageCategory + '</span>'));
+            $("ul").append($('<li>').append('<span>[' + dateFired + '] ' + usageCategory + '( current value: ' + currentUsageValue + ' )</span>'));
         };
 
         $.connection.hub.start();
