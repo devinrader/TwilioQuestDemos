@@ -4,8 +4,22 @@
         <meta charset="utf-8" />
         <title>@ViewBag.Title</title>
         @Styles.Render("~/Content/bootstrap")
-
+        @Styles.Render("~/Content/infragistics")        
+        @Scripts.Render("~/bundles/modernizr")
         <style>
+            /*html, body, * {
+                font-family:"Press Start 2P";
+                font-size:18px;
+                color:white;
+                background-color:black;
+                cursor:url(../img/arrow.png), pointer;
+            }
+
+            h1 {
+                font-family:"Press Start 2P";
+                color:red;
+            }*/
+
             /* Custom container */
             .container-fixed {
               margin: 0 auto;
@@ -22,7 +36,10 @@
         </div>
 
         @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/infragistics")
+        @*@Scripts.Render("~/bundles/bootstrap")*@
 
+        @RenderSection("scripts", required: false)
     </body>
 </html>

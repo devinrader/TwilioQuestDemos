@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,11 +8,47 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 using Twilio;
+using TwilioQuestDemos.Hubs;
 
 namespace TwilioQuestDemos.Controllers
 {
     public class UsageController : Controller
     {
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+        public ActionResult Records(string usageType, string interval, string startDate, string endDate)
+        {
+            Console.WriteLine(usageType);
+
+            bool _flag = true;
+            List<dynamic> _usageRecords = new List<dynamic>();
+            int _page = 0;
+
+            var client = new TwilioRestClient(Credentials.AccountSid, Credentials.AuthToken);
+
+            while (_flag)
+            {
+                var result = client.ListUsage(usageType, interval, DateTime.Parse(startDate), DateTime.Parse(endDate), _page, 50);
+
+                _usageRecords.AddRange(result.UsageRecords);
+
+                if ((result.Page + 1) >= result.NumPages)
+                {
+                    _flag = false;
+                    continue;
+                }
+
+                _page++;
+            }
+
+            return Json(JsonConvert.SerializeObject(_usageRecords), JsonRequestBehavior.AllowGet);
+            //return Json(_usageRecords, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult Triggers()
         {
             //create a new trigger 
@@ -30,8 +68,15 @@ namespace TwilioQuestDemos.Controllers
                     var t = client.CreateUsageTrigger(new UsageTriggerOptions() { 
                      UsageCategory="sms",
                      FriendlyName= "Chapter13Trigger",
-                     CallbackUrl = Url.Action("Usage", "TriggerCallbackHandler", null, "http")
+                     TriggerBy="count",
+                     TriggerValue="3",
+                     CallbackUrl = Url.Action("TriggerCallbackHandler", "Usage", null, "http")
                     });
+
+                    if (t.RestException != null)
+                    {
+                        Console.WriteLine(t.RestException.Message);
+                    }
                 }
             }
                      
@@ -40,7 +85,9 @@ namespace TwilioQuestDemos.Controllers
 
         public ActionResult TriggerCallbackHandler()
         {
-            //use signalr to update a view
+            var context = GlobalHost.ConnectionManager.GetHubContext<Trigger>();
+            context.Clients.All.triggerNotification();
+
             return new EmptyResult();
         }
     }

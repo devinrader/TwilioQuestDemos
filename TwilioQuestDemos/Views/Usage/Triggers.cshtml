@@ -2,7 +2,24 @@
     ViewBag.Title = "Triggers";
 }
 
-<h2>Triggers</h2>
+<script type="text/javascript" src="~/Scripts/jquery.signalR-1.1.3.js"></script>
+<script type="text/javascript" src="/signalr/hubs"></script>
+
+<script>
+    $(function () {
+        $.connection.hub.logging = true;
+
+        var hub = $.connection.triggerHub;
+
+        hub.client.triggerNotification = function () {
+            alert("trigger");
+        };
+
+        $.connection.hub.start();
+    });
+</script>
+
+<ul></ul>
 
 This page creates a usage trigger which will fire after every three sms messages sent to ###-###-####.
 
