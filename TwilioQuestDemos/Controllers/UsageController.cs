@@ -76,10 +76,9 @@ namespace TwilioQuestDemos.Controllers
 
             Console.WriteLine("Trigger Fired");
 
-            string sid = FindTrigger();
-            if (!string.IsNullOrEmpty(sid))
+            if (!string.IsNullOrEmpty(UsageTriggerSid))
             {
-                DeleteTrigger(sid);
+                DeleteTrigger(UsageTriggerSid);
                 CreateTrigger();
             }
 
