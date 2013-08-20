@@ -7,7 +7,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace TwilioQuestDemos.Hubs
 {
-    [HubName("TriggerHub")]
+    [HubName("triggerHub")]
     public class Trigger : Hub
     {
     }
