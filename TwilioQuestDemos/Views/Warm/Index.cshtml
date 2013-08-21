@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Warm Handoff Configuration";
+}
+
+
+@using (Html.BeginForm("SaveSampleConfiguration", "Warm"))
+{ 
+    @Html.TextBox("customerPhone")
+    @Html.TextBox("agentOnePhone")
+    @Html.TextBox("agentTwoPhone")
+
+    <input type="submit" value="Save" />
+}
