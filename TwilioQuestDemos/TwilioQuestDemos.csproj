@@ -174,6 +174,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\CallbackController.cs" />
     <Compile Include="Controllers\FallbackController.cs" />
     <Compile Include="Controllers\HereThereController.cs" />
     <Compile Include="Controllers\MuteController.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\Callback.cs" />
     <Compile Include="Hubs\Trigger.cs" />
     <Compile Include="MobileServiceRequestHelper.cs" />
     <Compile Include="Models\WarmCall.cs" />
@@ -856,6 +858,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Warm\Index.cshtml" />
     <Content Include="Views\Warm\SaveSampleConfiguration.cshtml" />
+    <Content Include="Views\Callback\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
