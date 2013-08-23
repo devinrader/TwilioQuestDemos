@@ -2,61 +2,102 @@
     ViewBag.Title = "Usage Dashboard";
 }
 
-<div class="container">
-    <style>
-        .form-horizontal .control-label {
-          float: left;
-          /*original: width: 140px;*/
-          width: 75px;
-          padding-top: 5px;
-          text-align: right;
-        }
-        .form-horizontal .controls {
-          /*original: margin-left: 160px;*/
-          margin-left: 80px;
-        }
-        .ui-widget-content { 
-            border: 0px solid #aaaaaa/*{borderColorContent}*/; 
-            background: #ffffff/*{bgColorContent}*/ url(../Content/Infragistics/css/structure/images/ui-bg_flat_75_ffffff_40x100.png)/*{bgImgUrlContent}*/ 50%/*{bgContentXPos}*/ 50%/*{bgContentYPos}*/ repeat-x/*{bgContentRepeat}*/; 
-            color: #222222/*{fcContent}*/;
-        }
 
-    </style>
-    <div class="row">
-        <div class="col-lg-12"><h2>Call Usage</h2></div>
+<style>
+    .ui-chart-container
+    {
+        border: transparent;
+        background-color: lightgray;
+        font-size:small;
+    }
+
+    .chart-border {
+        background-color:lightgray;
+        padding:10px;
+    }
+
+    label {
+        color: white;
+    }
+
+    #showQuest {
+        margin: 20px auto 0 auto;
+    }
+
+    .padding10 {
+        padding: 10px;
+    }
+
+    #showQuest .header {
+        background-color: red;
+        border-bottom: 3px solid;
+        margin-bottom:20px;
+        color:white;
+    }
+
+    #showQuest h1 {
+        margin: 0 0 10px 0;
+        padding: 0;
+        font-size: 22px;
+        color:white;
+    }
+
+    .tutorial p, .tutorial a, .tutorial li {
+        font-family: Helvetica, sans-serif;
+    }
+</style>
+
+<div class="container">
+
+    <div class="row" id="showQuest">
+        <div class="col-lg-12 header">
+            <div class="padding10">
+                <h1>Whose (Phone) Line is it Anyway?</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row tutorial">
+        <div class="col-lg-12"><p>This sample demonstrates using the Twilio Usage APIs to build a simple account usage dashboard.  Use the options on the right to change the data shown in the graphs.</p></div>
     </div>
 
     <div class="row">
-        <div class="col-lg-8">
-            <div class="usageChart" id="calls"></div>
+        <div class="col-lg-12"><h1>Call Usage</h1></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="chart-border">
+                <div class="usageChart" id="calls"></div>
+            </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <form class="form-horizontal">
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">Call Type:</label>
                     <div class="controls">
                         <select data-bind="options: callsViewModel.base.usageTypes, optionsText: 'key', optionsValue: 'value', value: callsViewModel.base.selectedUsageType"></select>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">Interval:</label>
                     <div class="controls">
                         <select data-bind="options: callsViewModel.base.intervals, optionsText: 'key', optionsValue: 'value', value: callsViewModel.base.selectedInterval"></select>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">Start Date:</label>
                     <div class="controls">
-                        <!--<input class="dateSelector" data-bind="igDatePicker: callsViewModel.base.startDate" />-->
+                        <input class="dateSelector" data-bind="datepicker: callsViewModel.base.startDate, datePickerOptions: { dateFormat: 'mm/dd/yy' }" />
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">EndDate:</label>
                     <div class="controls">
-                       <!-- <input class="dateSelector" data-bind="igDatePicker: callsViewModel.base.endDate" />-->
+                       <input class="dateSelector" data-bind="datepicker: callsViewModel.base.endDate, datePickerOptions: { dateFormat: 'mm/dd/yy' }" />
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <div class="controls">
                         <button type="button" class="refresh btn" value="calls">Refresh</button>
                     </div>
@@ -68,40 +109,42 @@
     <hr />
 
     <div class="row">
-        <div class="col-lg-12"><h2>SMS Usage</h2></div>
+        <div class="col-lg-12"><h1>SMS Usage</h1></div>
     </div>
 
     <div class="row">
-        <div class="col-lg-8">
-            <div class="usageChart" id="smsmessages"></div>
+        <div class="col-lg-9">
+            <div class="chart-border">
+                <div class="usageChart" id="smsmessages"></div>
+            </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <form class="form-horizontal">
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">Source:</label>
                     <div class="controls">
                         <select data-bind="options: smsmessagesViewModel.base.usageTypes, optionsText: 'key', optionsValue: 'value', value: smsmessagesViewModel.base.selectedUsageType"></select>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">Interval:</label>
                     <div class="controls">
                         <select data-bind="options: smsmessagesViewModel.base.intervals, optionsText: 'key', optionsValue: 'value',  value: smsmessagesViewModel.base.selectedInterval"></select>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">Start Date:</label>
                     <div class="controls">
-                        <!--<input class="dateSelector" data-bind="igDatePicker: smsmessagesViewModel.base.startDate" />-->
+                        <input class="dateSelector" data-bind="datepicker: smsmessagesViewModel.base.startDate" />
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">EndDate:</label>
                     <div class="controls">
-                       <!-- <input class="dateSelector" data-bind="igDatePicker: smsmessagesViewModel.base.endDate" />-->
+                        <input class="dateSelector" data-bind="datepicker: smsmessagesViewModel.base.endDate" />
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <div class="controls">
                        <button type="button" class="refresh btn" value="smsmessages">Refresh</button>
                     </div>
@@ -110,51 +153,7 @@
         </div>
     </div>
 
-    <hr />
-    <!--
-    <div class="row">
-        <div class="col-lg-12"><h2>Phone Number Usage</h2></div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="usageChart" id="phonenumbers"></div>
-        </div>
-        <div class="col-lg-4">
-            <form class="form-horizontal">
-                <div class="control-group">
-                    <label class="control-label">Source:</label>
-                    <div class="controls">
-                        <select data-bind="options: phonenumbersViewModel.base.usageTypes, optionsText: 'key', optionsValue: 'value', value: phonenumbersViewModel.base.selectedUsageType"></select>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Interval:</label>
-                    <div class="controls">
-                        <select data-bind="options: phonenumbersViewModel.base.intervals, optionsText: 'key', optionsValue: 'value',  value: phonenumbersViewModel.base.selectedInterval"></select>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">Start Date:</label>
-                    <div class="controls">
-                        <input class="dateSelector" data-bind="igDatePicker: phonenumbersViewModel.base.startDate" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">EndDate:</label>
-                    <div class="controls">
-                        <input class="dateSelector" data-bind="igDatePicker: phonenumbersViewModel.base.endDate" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <button type="button" class="refresh btn" value="phonenumbers">Refresh</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>-->
-
+    <br />
 </div>
 
 @section Scripts {
@@ -164,34 +163,47 @@
     @Scripts.Render("~/bundles/infragistics")
 
     <script type="text/javascript">
-        ko.bindingHandlers.igDatePicker = {
-            init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        ko.bindingHandlers.datepicker = {
+            init: function (element, valueAccessor, allBindingsAccessor) {
+                //initialize datepicker with some optional options
+                $.datepicker.setDefaults({ dateFormat: 'mm/dd/yy' });
+
+                var options = allBindingsAccessor().datepickerOptions; //|| dateTimePickerOptions;
+                $(element).datepicker(options);
 
                 //handle the field changing
-                ko.utils.registerEventHandler(element, "igdatepickervaluechanged", function () {
+                ko.utils.registerEventHandler(element, "change", function () {
                     var observable = valueAccessor();
-                    var updatedValue = $(element).igDatePicker("option", "value");
+                    var updatedValue = new Date($(element).val());
 
                     observable(updatedValue);
                 });
 
                 //handle disposal (if KO removes by the template binding)
                 ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
-                    $(element).igDatePicker("destroy");
+                    $(element).datepicker("destroy");
                 });
-
             },
-
-            update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            update: function (element, valueAccessor) {
                 var value = ko.utils.unwrapObservable(valueAccessor());
-                $(element).igDatePicker("option", "value", value);
-            }
 
+                var parsedDate = new XDate(value).toString("MM/dd/yy");
+                $(element).datepicker('setDate', parsedDate);
+            }
+        };
+
+        var jsonDateRE = /^\/Date\((-?\d+)(\+|-)?(\d+)?\)\/$/;
+
+        var parseJsonDateString = function (value) {
+            var arr = value && jsonDateRE.exec(value);
+            if (arr) {
+                return new Date(parseInt(arr[1]));
+            }
+            return value;
         };
     </script>
 
     <script type="text/javascript">
-
         var vm = null;
 
         function KeyValuePair(key, value) {
@@ -226,7 +238,7 @@
                 new KeyValuePair("Incoming - Toll Free", "calls-inbound-tollfree"),
                 new KeyValuePair("Outgoing", "calls-outbound"),
                 new KeyValuePair("Client", "calls-client"),
-                new KeyValuePair("Client", "calls-sip")];
+                new KeyValuePair("SIP", "calls-sip")];
 
             self.base.selectedInterval = ko.observable("Daily");
             self.base.selectedUsageType = ko.observable("calls");
@@ -256,25 +268,6 @@
 
             self.updateUsageRecords = function () {
                 self.base.updateUsageRecords('smsmessages');
-            }
-        }
-
-        function PhoneNumbersViewModel() {
-            BaseViewModel.prototype = new BaseViewModel();
-
-            var self = this;
-            self.base = BaseViewModel.prototype;
-
-            self.base.usageTypes = [
-                new KeyValuePair("All", "phonenumbers"),
-                new KeyValuePair("Toll Free", "phonenumbers-tollfree"),
-                new KeyValuePair("Local", "phonenumbers-local")];
-
-            self.base.selectedInterval = ko.observable("Daily");
-            self.base.selectedUsageType = ko.observable("phonenumbers");
-
-            self.updateUsageRecords = function () {
-                self.base.updateUsageRecords('phonenumbers');
             }
         }
 
@@ -315,8 +308,20 @@
 
                     console.log(self.usageRecords().count());
 
+                    var axes = $('#' + type + '.usageChart').igDataChart("option", "axes");
+
+                    if (self.selectedInterval()=='Daily') {
+                        axes[0].formatLabel = formatDaily;
+                    }
+                    else if (self.selectedInterval() == 'Monthly') {
+                        axes[0].formatLabel = formatMonthly;
+                    }
+                    else {
+                        axes[0].formatLabel = formatYearly;
+                    }
+
                     $('#' + type + '.usageChart').igDataChart({ dataSource: self.usageRecords() });
-                    //$('#' + type + '.usageChart').igDataChart("resetZoom");
+                    $('#' + type + '.usageChart').igDataChart("resetZoom");
                 });
             }
 
@@ -327,11 +332,11 @@
 
             self.callsViewModel = new CallsViewModel();
             self.smsmessagesViewModel = new SmsMessagesViewModel();
-            self.phonenumbersViewModel = new PhoneNumbersViewModel();
+            //self.phonenumbersViewModel = new PhoneNumbersViewModel();
 
             this.callsViewModel.updateUsageRecords();
             this.smsmessagesViewModel.updateUsageRecords();
-            this.phonenumbersViewModel.updateUsageRecords();
+            //this.phonenumbersViewModel.updateUsageRecords();
         }
 
         $(function () {
@@ -343,37 +348,61 @@
                 m.updateUsageRecords();
             });
 
-            $('.dateSelector').igDatePicker(
-            {
-                width: 250,
-                dateInputFormat: 'date',
+            $('.dateSelector').datepicker({
+                showOn: 'button',
+                dateFormat: 'mm/dd/yy'
             });
 
-            $(".usageChart").igDataChart({
-                width: "400px",
-                height: "300px",
-                dataSource: [],
-                axes: [{
-                    name: "xAxis",
-                    type: "categoryX",
-                    label: "startDate",
-                },
-                {
-                    name: "yAxis",
-                    type: "numericY"
-                }],
-                series: [{
-                    name: "series1",
-                    type: "column",
-                    xAxis: "xAxis",
-                    yAxis: "yAxis",
-                    valueMemberPath: "usage"                    
-                }],
+            $(".usageChart").each(function () {
 
+                $(this).igDataChart({
+                    css: {
+                        chart: "test"  
+                    },
+                    width: "100%",
+                    height: "300px",
+                    dataSource: [],
+                    axes: [{
+                        name: "xAxis",
+                        type: "categoryX",
+                        label: "startDate",
+                        formatLabel: formatDaily
+                    },
+                    {
+                        name: "yAxis",
+                        type: "numericY"
+                    }],
+                    series: [{
+                        name: "series1",
+                        type: "column",
+                        xAxis: "xAxis",
+                        yAxis: "yAxis",
+                        valueMemberPath: "usage"
+                    }],
+
+                })
             });
 
             ko.applyBindings(vm);
         });
+
+        var formatDaily = function (item) {
+            var d = new Date(item.startDate);
+            var label =  d.getMonth() + '/' + d.getDate();
+            return label;
+        };
+
+        var formatMonthly = function (item) {
+            var ret = '';
+            ret = new Date(item.startDate).getMonth();
+            return ret;
+        };
+
+        var formatYear = function (item) {
+            var ret = '';
+            ret = new Date(item.startDate).getYear();
+            return ret;
+        };
     </script>
 
 }
