@@ -50,6 +50,9 @@
     <Reference Include="Infragistics.Web.Mvc.Mobile">
       <HintPath>..\packages\IgniteUI.Trial.13.1.20131.2143\lib\net45\Infragistics.Web.Mvc.Mobile.dll</HintPath>
     </Reference>
+    <Reference Include="JWT">
+      <HintPath>..\packages\JWT.1.3.2\lib\3.5\JWT.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.1.1.3\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -162,6 +165,9 @@
     <Reference Include="Twilio.Api">
       <HintPath>..\packages\Twilio.3.5.17\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
+    <Reference Include="Twilio.Client.Capability">
+      <HintPath>..\packages\Twilio.Client.3.4.4\lib\3.5\Twilio.Client.Capability.dll</HintPath>
+    </Reference>
     <Reference Include="Twilio.Mvc">
       <HintPath>..\packages\Twilio.Mvc.3.1.12\lib\3.5\Twilio.Mvc.dll</HintPath>
     </Reference>
@@ -175,6 +181,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\CallbackController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\FallbackController.cs" />
     <Compile Include="Controllers\HereThereController.cs" />
     <Compile Include="Controllers\MuteController.cs" />
@@ -188,6 +195,7 @@
     <Compile Include="Hubs\Callback.cs" />
     <Compile Include="Hubs\Trigger.cs" />
     <Compile Include="MobileServiceRequestHelper.cs" />
+    <Compile Include="Models\PhoneNumber.cs" />
     <Compile Include="Models\WarmCall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlExtensions.cs" />
@@ -859,6 +867,8 @@
     <Content Include="Views\Warm\Index.cshtml" />
     <Content Include="Views\Warm\SaveSampleConfiguration.cshtml" />
     <Content Include="Views\Callback\Index.cshtml" />
+    <Content Include="Views\Client\Index.cshtml" />
+    <Content Include="Views\Client\Phone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
