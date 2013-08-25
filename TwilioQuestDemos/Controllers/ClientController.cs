@@ -27,6 +27,10 @@ namespace TwilioQuestDemos.Controllers
 
         public async Task<ActionResult> Phone(string number)
         {
+            var util = PhoneNumbers.PhoneNumberUtil.GetInstance();
+            var tmp = util.Parse(number, "US");
+            number = util.Format(tmp, PhoneNumbers.PhoneNumberFormat.E164).ToString();
+
             IMobileServiceTable<PhoneNumber> phoneNumberTable = MobileService.GetTable<PhoneNumber>();
             var phoneNumbers = await phoneNumberTable.ReadAsync<PhoneNumber>(phoneNumberTable.Where(p => p.Value == number));
 
@@ -40,11 +44,12 @@ namespace TwilioQuestDemos.Controllers
             }
 
             var capability = new TwilioCapability(Credentials.AccountSid, Credentials.AuthToken);
-            capability.AllowClientIncoming(phoneNumber.Key.ToString("N")); //phone number
-            capability.AllowClientOutgoing("");
+            capability.AllowClientIncoming(phoneNumber.Key.ToString("N"));
+            capability.AllowClientOutgoing("AP08b4c661205ac48c6e896a83fc12aec1");
             var token = capability.GenerateToken();
 
             ViewBag.token = token;
+            ViewBag.source = number;
 
             return View();
         }
@@ -65,16 +70,16 @@ namespace TwilioQuestDemos.Controllers
             else
             {
                 response.Say("Connecting you now");
-                response.DialClients(phoneNumber.Key.ToString());
+                response.DialClients(phoneNumber.Key.ToString("N"));
             }
             return TwiML(response);
 
         }
 
-        public ActionResult RouteOutgoing(string source, string target)
+        public ActionResult RouteOutgoing(string target)
         {
             var response = new TwilioResponse();
-            response.Dial(target, new { CallerId = source });
+            response.Dial(target, new { callerId = "+14842414922" });
 
             return TwiML(response);
         }
