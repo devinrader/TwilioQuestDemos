@@ -185,6 +185,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\CallbackController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\FallbackController.cs" />
     <Compile Include="Controllers\HereThereController.cs" />
     <Compile Include="Controllers\MuteController.cs" />

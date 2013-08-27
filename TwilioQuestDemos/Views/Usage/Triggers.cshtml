@@ -91,7 +91,7 @@
         var hub = $.connection.triggerHub;
 
         hub.client.triggerNotification = function (usageTriggerSid, dateFired, usageCategory, triggerBy, triggerValue, currentUsageValue) {
-            $("tbody").append($('<tr>').append('<td>' + dateFired + '</td><td>' + usageCategory + '</td><td>' + triggerValue + '</td><td>' + currentUsageValue + '/td>'));
+            $("tbody").append($('<tr>').append('<td>' + dateFired + '</td><td>' + usageCategory + '</td><td>' + triggerValue + '</td><td>' + currentUsageValue + '</td>'));
         };
 
         $.connection.hub.start();

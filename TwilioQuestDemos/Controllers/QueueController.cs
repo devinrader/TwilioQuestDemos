@@ -15,7 +15,7 @@ namespace TwilioQuestDemos.Controllers
         public ActionResult BasicEnqueue()
         {
             var response = new TwilioResponse();
-            response.Say("Welcome adventurer to the Twilio Quest Chapter 10 demo line.  An incantation adds you to a call queue.");
+            response.Say("Welcome adventurer to the Twilio Quest chapter 1 demo line.  An incantation adds you to a call queue.");
             response.Enqueue("twilioquestchapter10");
             
             return TwiML(response);
@@ -27,7 +27,7 @@ namespace TwilioQuestDemos.Controllers
             response.Say("Now transporting into a phone call with a fellow adventurer.  Say hello when you get there.");
             response.DialQueue("twilioquestchapter10", new { timeout="5"});  //TODO: need to add a overload here
 
-            response.Say("Hmm.  Looks like there are not any adventures waiting right now.  Try later.");
+            response.Say("Looks like there are not any adventures waiting right now.  Try later.");
             return TwiML(response);
         }
 
