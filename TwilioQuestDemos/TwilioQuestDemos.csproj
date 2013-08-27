@@ -188,6 +188,7 @@
     <Compile Include="Controllers\FallbackController.cs" />
     <Compile Include="Controllers\HereThereController.cs" />
     <Compile Include="Controllers\MuteController.cs" />
+    <Compile Include="Controllers\PresenceController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
     <Compile Include="Controllers\UsageController.cs" />
     <Compile Include="Controllers\WarmController.cs" />
@@ -872,6 +873,7 @@
     <Content Include="Views\Callback\Index.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Client\Phone.cshtml" />
+    <Content Include="Views\Presence\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

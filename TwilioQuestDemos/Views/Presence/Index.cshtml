@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Twilio Presense";
+}
+
+<style>
+    #showQuest {
+        margin: 20px auto 0 auto;
+    }
+
+    .padding10 {
+        padding: 10px;
+    }
+
+    #showQuest .header {
+        background-color: red;
+        border-bottom: 3px solid;
+        margin-bottom:20px;
+        color:white;
+    }
+
+    #showQuest h1 {
+        margin: 0 0 10px 0;
+        padding: 0;
+        color:white;
+    }
+
+    .tutorial p, .tutorial a, .tutorial li {
+        font-family: Helvetica, sans-serif;
+    }
+
+    table {
+        width:100%;
+        color:white;
+    }
+
+    li {
+        color: white;
+        font-size:x-large;
+    }
+</style>
+
+<div class="container">
+
+    <div class="row" id="showQuest">
+        <div class="col-lg-12 header">
+            <div class="padding10">
+                <h1>I Can Feel Your Presence</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row tutorial">
+        <div class="col-lg-12">
+            <p>This sample demonstrates Twilios Presence API.  Presence lets you know when other Twilio Clients come online or go offline. To use this sample, enter your device phone number below in order to register a new client name.</p>
+        </div>
+    </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+            <form class="form-inline">
+                <input class="form-control" type="text" id="clientname" name="clientname" style="width:250px;" placeholder="{client name}" />
+                <button class="btn">Register</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h1>Users Currently Online</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <ul></ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="//static.twilio.com/libs/twiliojs/1.1/twilio.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        $(function() { 
+            $('button').click(function () {
+                $.ajax({
+                    url: 'Presence/Token',
+                    data: { "clientName": $("#clientname").val() }
+                })
+                    .done(function (data) {
+                        Twilio.Device.setup(data);
+                        //disable the input and button
+                    })
+                    .fail(function () { alert("Token Gen Failed"); });
+                return false;
+            });
+        });
+
+        Twilio.Device.ready(function (device) {
+            $("#log").text("Ready");
+        });
+
+        Twilio.Device.error(function (error) {
+            $("#log").text("Error: " + error.message);
+        });
+
+        Twilio.Device.presence(function (presenseEvent) {
+            if (presenseEvent.available) {
+                $("ul").append('<li id="' + presenseEvent.from + '">' + presenseEvent.from + '</li>');
+            }
+            else {
+                $("li#" + presenseEvent.from).remove();
+            }
+        });
+
+    </script>
+}
