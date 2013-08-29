@@ -199,6 +199,7 @@
     </Compile>
     <Compile Include="Hubs\Callback.cs" />
     <Compile Include="Hubs\Trigger.cs" />
+    <Compile Include="Hubs\Warm.cs" />
     <Compile Include="MobileServiceRequestHelper.cs" />
     <Compile Include="Models\PhoneNumber.cs" />
     <Compile Include="Models\WarmCall.cs" />
@@ -870,7 +871,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Warm\Index.cshtml" />
-    <Content Include="Views\Warm\SaveSampleConfiguration.cshtml" />
+    <Content Include="Views\Warm\SaveWarmHandoffConfiguration.cshtml" />
     <Content Include="Views\Callback\Index.cshtml" />
     <Content Include="Views\Client\Index.cshtml" />
     <Content Include="Views\Client\Phone.cshtml" />

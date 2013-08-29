@@ -2,12 +2,81 @@
     ViewBag.Title = "Warm Handoff Configuration";
 }
 
+<style>
+    #showQuest {
+        margin: 20px auto 0 auto;
+    }
 
-@using (Html.BeginForm("SaveSampleConfiguration", "Warm"))
-{ 
-    @Html.TextBox("customerPhone")
-    @Html.TextBox("agentOnePhone")
-    @Html.TextBox("agentTwoPhone")
+    .padding10 {
+        padding: 10px;
+    }
 
-    <input type="submit" value="Save" />
-}
+    #showQuest .header {
+        background-color: red;
+        border-bottom: 3px solid;
+        margin-bottom:20px;
+        color:white;
+    }
+
+    #showQuest h1 {
+        margin: 0 0 10px 0;
+        padding: 0;
+        color:white;
+    }
+
+    .tutorial p, .tutorial a, .tutorial li {
+        font-family: Helvetica, sans-serif;
+    }
+
+    table {
+        width:100%;
+        color:white;
+    }
+</style>
+
+<div class="container">
+
+    <div class="row" id="showQuest">
+        <div class="col-lg-12 header">
+            <div class="padding10">
+                <h1>Neither Here nor There</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="row tutorial">
+        <div class="col-lg-12">
+            <p>This sample lets you experience the warm hand off of a customer call from one agent to another agent.  To use this demo, you will need three different phones, so grab some others in your Guild to try it out.</p>
+            <p>To start, enter the three phone numbers in the form below, one phone number per role, then clock the Save button.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div style="width:300px;color:white;margin-top:20px;">
+
+        @using (Html.BeginForm("SaveWarmHandoffConfiguration", "Warm", FormMethod.Post, new { @class = "form" }))
+        { 
+            <div class="form-group">
+            @Html.Label("Customer Phone")
+            @Html.TextBox("customerPhone", "", new { @class="form-control" })
+            </div>
+            
+            <div class="form-group">
+            @Html.Label("Agent One Phone")
+            @Html.TextBox("agentOnePhone", "", new { @class="form-control" })
+            </div>
+            
+            <div class="form-group">
+            @Html.Label("Agent Two Phone")
+            @Html.TextBox("agentTwoPhone", "", new { @class="form-control" })
+            </div>
+            
+            <input type="submit" value="Save" class="btn btn-default" />
+        }
+
+            </div>
+        </div>
+    </div>
+</div>
