@@ -59,8 +59,14 @@ namespace TwilioQuestDemos.Controllers
                     Session[From] = null;
                     Session.Abandon();
 
-                    response.Sms(string.Format("{0}?  Wrong!  The correct answer is 'African or European?'  Good try though {1}.  And I do still like the color {2}.", Body, c.Name, c.Color));
-
+                    if (Body.Contains("African or European"))
+                    {
+                        response.Sms(string.Format("Well...I don't know...AAAAARRRRRRRRRRRRRRRGGGGGHHHH!!!  Curse you {0}", c.Name));
+                    }
+                    else
+                    {
+                        response.Sms(string.Format("{0}?  Wrong!  The correct answer is 'African or European?'  Good try though {1}.  And I do still like the color {2}.", Body, c.Name, c.Color));
+                    }
                     break;
             }
 
