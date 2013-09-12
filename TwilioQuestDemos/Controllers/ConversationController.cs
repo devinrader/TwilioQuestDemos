@@ -59,7 +59,7 @@ namespace TwilioQuestDemos.Controllers
                     Session[From] = null;
                     Session.Abandon();
 
-                    if (Body.ToLower().Contains("African or European"))
+                    if (Body.ToLower().Contains("african or european"))
                     {
                         response.Sms(string.Format("Well...I don't know...AAAAARRRRRRRRRRRRRRRGGGGGHHHH!!!  Curse you {0}", c.Name));
                     }
